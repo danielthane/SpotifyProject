@@ -139,3 +139,16 @@ h1 {
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!! BREAKS AT WIDTH 1025PX !!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* STYLING TOP SONGS */
+.top-song {
+  align-items: center;
+  border: solid 2px black;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.data-section-heading {
+  margin: 1rem 0rem;
+}

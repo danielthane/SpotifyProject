@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test</title>
-  </head>
-  <body>
-    {% for song in songs %}
-    <p>{{ song }}</p>
-    {% endfor %}
-  </body>
-</html>
+{% extends "layout.html" %} {% block title %} Top songs {% endblock %}
+
+<body>
+  {% block main %}
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-6">
+        <h2 class="data-section-heading">Your Top 10 Recently Played Songs</h2>
+        {% for song in songs %}
+        <div class="top-song">
+          <img src="{{ song.image }}" />
+          <p>{{ song.title }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-6">
+        <h2 class="data-section-heading">Your Top 10 Artists of All Time!</h2>
+        {% for artist in artists %}
+        <div class="top-song">
+          <img src="{{ artist.image }}" height="64px" width="64px" />
+          <p>{{ artist.name }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <p>Your average popularity rating is currently {{popularity}}</p>
+
+  {% endblock %}
+</body>

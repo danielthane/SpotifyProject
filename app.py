@@ -39,11 +39,9 @@ def get_info():
         print("User not logged in")
         redirect(url_for("login", _external=False))
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    items = sp.current_user_saved_tracks()['items']
-    songs = []
-    for i in range(len(items)):
-        songs.append(items[i]['track']['name'])
-    return render_template('test.html', songs = songs)
+    songs, popularity_avg = get_songs(sp)
+    artists = get_top_artists(sp)
+    return render_template('test.html', songs = songs, popularity=popularity_avg, artists=artists)
 
 
     
@@ -60,7 +58,7 @@ def get_token():
     
     return token_info
 
-scope = "user-library-read"
+scope = "user-library-read user-read-recently-played"
 def create_spotify_oauth():
     return SpotifyOAuth(client_id=os.getenv("SPOTIPY_CLIENT_ID"), 
                         client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"), 
@@ -68,5 +66,33 @@ def create_spotify_oauth():
                         scope=scope)
 
 
+def get_songs(sp):
+    items = sp.current_user_recently_played(limit=10)['items']
+    songs = []
+    pop_total = 0
+    for i in range(len(items)):
+        song = {}
+        name = items[i]['track']['name']
+        img_link = (items[i]['track']['album']['images'][2]['url'])
+        song['title'] = name
+        song['image'] = img_link
+        songs.append(song)
+        pop_total += items[i]['track']['popularity']
+    popularity_avg = round(pop_total / len(items)) 
+    return songs, popularity_avg
+
+def get_top_artists(sp):
+    artists = []
+    items = sp.current_user_top_artists(limit=10, time_range="long_term")['items']
+    for i in range(len(items)):
+        artist = {}
+        artist['name'] = items[i]['name']
+        artist['image'] = items[i]['images'][2]['url']
+        artists.append(artist)
+    return artists
 
 
+
+
+
+    
