@@ -4,6 +4,7 @@
   {% block main %}
 
   <div class="container text-center">
+    <p>Your average popularity rating is currently {{popularity}}</p>
     <div class="row">
       <div class="col-6">
         <h2 class="data-section-heading">Your Top 10 Recently Played Songs</h2>
@@ -24,8 +25,17 @@
         {% endfor %}
       </div>
     </div>
+    <div class="row">
+      <div class="col-6">
+        <h2 class="data-section-heading">Your Top 10 Recently Played Songs</h2>
+        {% for genre in genres %}
+        <div class="top-song">
+          <p>{{ genre }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
-  <p>Your average popularity rating is currently {{popularity}}</p>
 
   {% endblock %}
 </body>

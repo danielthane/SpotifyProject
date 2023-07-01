@@ -41,7 +41,12 @@ def get_info():
     sp = spotipy.Spotify(auth=token_info['access_token'])
     songs, popularity_avg = get_songs(sp)
     artists = get_top_artists(sp)
-    return render_template('test.html', songs = songs, popularity=popularity_avg, artists=artists)
+    genres = get_genres(sp)
+    return render_template('test.html', 
+                           songs = songs, 
+                           popularity=popularity_avg,
+                           artists=artists, 
+                           genres=genres)
 
 
     
@@ -90,6 +95,24 @@ def get_top_artists(sp):
         artist['image'] = items[i]['images'][2]['url']
         artists.append(artist)
     return artists
+
+def get_genres(sp):
+    all_genres = []
+    items = sp.current_user_top_artists(limit=10, time_range="long_term")['items']
+    for i in range(len(items)):
+        for genre in items[i]['genres']:
+            all_genres.append(genre)
+    genres = {}
+    for genre in all_genres:
+        if genre not in genres:
+            genres[genre] = 1
+        elif genre in genres:
+            genres[genre] += 1
+    sorted_genres = sorted(genres.items(), key=lambda x:x[1], reverse=True)
+    sorted_genres = dict(sorted_genres)
+    print(sorted_genres)
+    return sorted_genres
+
 
 
 
