@@ -39,9 +39,15 @@ def get_info():
         print("User not logged in")
         redirect(url_for("login", _external=False))
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    return sp.current_user_saved_tracks()
+    items = sp.current_user_saved_tracks()['items']
+    songs = []
+    for i in range(len(items)):
+        songs.append(items[i]['track']['name'])
+    return render_template('test.html', songs = songs)
+
 
     
+
 def get_token():
     token_info = session.get(TOKEN_INFO, None)
     if not token_info:
