@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  transition: 0.5s;
+}
+
+body {
+  background-color: #87ceeb;
+  font-family: "Courier Prime", monospace;
+}
+
+/* NAV STUFF */
+.main-nav {
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 2px solid #000;
+  display: flex;
+  font-size: 1.4rem;
+  justify-content: space-between;
+  padding-left: 2rem;
+}
+
+.nav-items {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  gap: 1.4rem;
+  margin-bottom: 0;
+  padding-top: 1rem;
+}
+
+.main-nav-login,
+.main-nav-login:visited {
+  background-color: #ffdb58;
+  border-left: 2px solid #000;
+  color: #000;
+  height: 100%;
+  padding: 1rem 3rem;
+  text-decoration: none;
+}
+
+.main-nav-login:hover,
+.main-nav-login:active {
+  background-color: #9723c9;
+  color: #fff;
+}
+
+.right-items {
+  display: flex;
+  gap: 3rem;
+}
+
+.list-item a,
+.list-item a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+.list-item a:hover,
+.list-item a:active {
+  color: #9723c9;
+}
+
+/* HERO SECTION */
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 5rem;
+}
+
+.container {
+  background-color: #87ceeb;
+  height: 93vh;
+}
+
+.img-box {
+  font-size: 1.6rem;
+  max-width: 350px;
+  text-align: left;
+}
+
+.left,
+.right {
+  padding-top: 8rem;
+}
+
+.right {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.data-img {
+  border: 2px solid black;
+}
+
+.img-text {
+  background-color: #fff;
+  border: 2px solid black;
+  border-top: 0px;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+.butn {
+  font-size: 1.2rem;
+  padding: 1.6rem 0.8rem;
+  text-decoration: none;
+}
+
+.login,
+.login:visited {
+  background-color: #000;
+  color: #fff;
+}
+
+.login:hover,
+.login:active {
+  background-color: #7fbc8c;
+  color: #000;
+}
+
+.discover,
+.discover:visited {
+  background-color: #fff;
+  color: #000;
+}
+
+.discover:hover,
+.discover:active {
+  background-color: #ffdb58;
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!! BREAKS AT WIDTH 1025PX !!!!!!!!!!!!!!!!!!!!!!!!!!*/
