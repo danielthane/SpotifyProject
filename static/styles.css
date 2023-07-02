@@ -138,7 +138,7 @@ h1 {
   background-color: #ffdb58;
 }
 
-/* !!!!!!!!!!!!!!!!!!!!!! BREAKS AT WIDTH 1025PX !!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/* !!!!!!!!!!!!!!!!!!!!!! BREAKS AT WIDTH 1200PX !!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 /* STYLING TOP SONGS */
 .top-song {
@@ -149,6 +149,77 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.top-song-text {
+  font-size: 1.6rem;
+  margin-top: 1.6rem;
+}
+
 .data-section-heading {
   margin: 1rem 0rem;
+}
+
+.top-artists {
+  align-items: center;
+}
+
+.songs-of-month {
+  background-color: #ffa07a;
+}
+
+.songs-container {
+  padding-top: 3rem;
+}
+
+.month-summary {
+  margin-bottom: 3rem;
+}
+
+/* SECOND SECTION --- GENRE STUFF */
+
+.top-genre {
+  align-items: center;
+  background-color: #e3dff2;
+  border: 2px solid #c4a1ff;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.genres {
+  background-color: #87ceeb;
+  padding-bottom: 3rem;
+}
+
+.genre-span {
+  color: #ff6b6b;
+}
+
+.genre-heading {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.genre-text {
+  font-size: 1.6rem;
+}
+
+.genres-container {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+/* ARTISTS STUFF */
+
+.artists,
+.artists-container {
+  background-color: #90ee90;
+}
+
+.artists-container {
+  padding-top: 3rem;
+  text-align: right;
+}
+
+.user-text {
+  color: #9723c9;
 }

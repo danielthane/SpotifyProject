@@ -3,20 +3,61 @@
 <body>
   {% block main %}
 
-  <div class="container text-center">
-    <p>Your average popularity rating is currently {{popularity}}</p>
-    <div class="row">
+  <section class="songs-of-month">
+    <div class="container text-center songs-of-month songs-container">
+      <h1 class="month-summary">
+        It's Been a {{ top_artist.artist }} Filled Month!
+      </h1>
+      <div class="row">
+        <div class="col-6">
+          <h3 class="data-section-heading">Song of the Month</h3>
+          <img src="{{ top_artist.big_image}}" alt="" width="500px" />
+          <p class="top-song-text">
+            {{ top_artist.title }} by {{ top_artist.artist }}
+          </p>
+        </div>
+        <!-- TOP ARTISTS -->
+        <div class="col-6 top-artists">
+          <h2 class="data-section-heading">5 Songs you Can't Stop Playing</h2>
+          {% for song in songs[1:] %}
+          <div class="top-song">
+            <img src="{{ song.image }}" />
+            <p>{{ song.title }} by {{ song.artist }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- TOP 5 ALL TIME ARTISTS -->
+  <section class="genres">
+    <div class="container genres-container">
+      <h2 class="genre-heading">
+        You've got <span class="genre-span">{{ top_genre.title() }}</span> on
+        your Mind
+      </h2>
+      <!-- TOP GENRES ------- CHANGE TO ONLY GENRES WITH 1 ENTRY -->
       <div class="col-6">
-        <h2 class="data-section-heading">Your Top 10 Recently Played Songs</h2>
-        {% for song in songs %}
-        <div class="top-song">
-          <img src="{{ song.image }}" />
-          <p>{{ song.title }}</p>
+        <h2 class="data-section-heading">Your Top Genres This Month</h2>
+        {% for genre in genres_list[:10] %}
+        <div class="top-genre">
+          <p class="genre-text">
+            {{ genres_list.index(genre) + 1 }}\ {{ genre.title() }}
+          </p>
         </div>
         {% endfor %}
       </div>
+    </div>
+  </section>
+
+  <section class="artists">
+    <div class="container artists-container">
+      <h2 class="genre-heading">
+        Who is lucky enough to be on
+        <span class="user-text">{{ current_user.name }}</span>'s Playlist
+      </h2>
       <div class="col-6">
-        <h2 class="data-section-heading">Your Top 10 Artists of All Time!</h2>
+        <h2 class="data-section-heading">5 Artists You've Stuck By</h2>
         {% for artist in artists %}
         <div class="top-song">
           <img src="{{ artist.image }}" height="64px" width="64px" />
@@ -25,17 +66,11 @@
         {% endfor %}
       </div>
     </div>
-    <div class="row">
-      <div class="col-6">
-        <h2 class="data-section-heading">Your Top 10 Recently Played Songs</h2>
-        {% for genre in genres %}
-        <div class="top-song">
-          <p>{{ genre }}</p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+  </section>
+
+  <!-- MAKE A SECTION FOR JUST THIS -->
+  <!-- COULD SAVE THIS TO A DATABASE TOO! -->
+  <h2>Your average popularity rating is currently {{popularity}}</h2>
 
   {% endblock %}
 </body>
