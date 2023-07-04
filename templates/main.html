@@ -1,0 +1,183 @@
+{% extends "layout.html" %} {% block title %} Top songs {% endblock %}
+
+<body>
+  {% block main %}
+
+  <section class="songs-of-month">
+    <div class="container text-center songs-of-month songs-container">
+      <h1 class="month-summary">
+        It's Been a {{ top_artist.artist }} Filled Month!
+      </h1>
+      <div class="row">
+        <div class="col-6">
+          <h3 class="data-section-heading">Song of the Month</h3>
+          <img src="{{ top_artist.big_image}}" alt="" width="500px" />
+          <p class="top-song-text">
+            {{ top_artist.title }} by {{ top_artist.artist }}
+          </p>
+        </div>
+        <!-- TOP ARTISTS -->
+        <div class="col-6 top-artists">
+          <h2 class="data-section-heading">5 Songs you Can't Stop Playing</h2>
+          {% for song in songs[1:] %}
+          <div class="top-song">
+            <img src="{{ song.image }}" />
+            <p>{{ song.title }} by {{ song.artist }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- TOP 5 ALL TIME ARTISTS -->
+  <section class="genres">
+    <div class="container genres-container">
+      <div class="row">
+        <div class="col">
+          <h2 class="genre-heading">
+            You've got
+            <span class="genre-span">{{ top_genre.title() }}</span> on your Mind
+          </h2>
+          <!-- TOP GENRES ------- CHANGE TO ONLY GENRES WITH 1 ENTRY -->
+          <div class="col">
+            <h2 class="data-section-heading">Your Top Genres This Month</h2>
+            {% for genre in genres_list[:10] %}
+            <div class="top-genre">
+              <p class="genre-text">
+                {{ genres_list.index(genre) + 1 }}\ {{ genre.title() }}
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col">
+          <canvas id="piechart" style="width: 500px; height: 500px"></canvas>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          <script>
+            const ctx = document.getElementById("piechart");
+
+            new Chart(ctx, {
+              type: "pie",
+              data: {
+                labels: {{ genres_keys|safe}},
+                datasets: [
+                  {
+                    label: "# of Votes",
+                    data: {{ genres_values|safe }},
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+
+                },
+              },
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="artists">
+    <div class="container artists-container">
+      <h2 class="genre-heading">
+        Who is lucky enough to be on
+        <span class="user-text">{{ current_user.name }}</span>'s Playlist
+      </h2>
+      <div class="container artists-container">
+        <div class="row justify-content-between">
+          <div class="col-5">
+            <h2 class="data-section-heading">5 Artists You've Stuck By</h2>
+            {% for artist in long_artists %}
+            <div class="top-song">
+              <img src="{{ artist.image }}" height="64px" width="64px" />
+              <p>{{ artist.name }}</p>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="col-5 short">
+            <h2 class="data-section-heading">5 Newcomers</h2>
+            {% for artist in short_artists %}
+            <div class="top-song">
+              <img src="{{ artist.image }}" height="64px" width="64px" />
+              <p>{{ artist.name }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAKE A SECTION FOR JUST THIS -->
+  <!-- COULD SAVE THIS TO A DATABASE TOO! -->
+
+  <section class="popularity container">
+    <div class="row">
+      <div class="col">
+        <h2>
+          Your current popularity rating is currently {{popularity_short}}
+        </h2>
+        <p>
+          That's pretty {% if popularity_short > 50 %} mainstream... {% else %}
+          alternative dude/dudette {% endif %}
+        </p>
+        <canvas id="popularity-pie-current" width="500" height="500"></canvas>
+        <script>
+          var can = document.getElementById("popularity-pie-current");
+          var context = can.getContext("2d");
+          var cx = 250;
+          var cy = 250;
+
+          function toRadians(deg) {
+            return (deg * Math.PI) / 180;
+          }
+
+          var popularity_angle = toRadians(({{ popularity_short|safe }} / 100) * 360);
+
+          context.fillStyle = 'yellow'
+          context.beginPath();
+          context.moveTo(cx,cy);
+          context.arc(cx,cy,150,0,popularity_angle);
+          context.lineTo(cx,cy);
+          context.closePath();
+          context.fill();
+        </script>
+      </div>
+      <div class="col">
+        <h2>Your historical popularity rating is {{popularity_long}}</h2>
+        <canvas id="popularity-pie-historic" width="500" height="500"></canvas>
+        <script>
+          var can = document.getElementById("popularity-pie-historic");
+          var context = can.getContext("2d");
+          var cx = 250;
+          var cy = 250;
+
+          function toRadians(deg) {
+            return (deg * Math.PI) / 180;
+          }
+
+          var popularity_angle = toRadians(({{ popularity_long|safe }} / 100) * 360);
+
+          context.fillStyle = 'red'
+          context.beginPath();
+          context.moveTo(cx,cy);
+          context.arc(cx,cy,150,0,popularity_angle);
+          context.lineTo(cx,cy);
+          context.closePath();
+          context.fill();
+        </script>
+      </div>
+      <h2>
+        It looks like you're {% if popularity_long > popularity_short %} joining
+        the minority, man... {% else %} slipping into mainstream mediocrity...
+        {% endif %}
+      </h2>
+    </div>
+  </section>
+
+  {% endblock %}
+</body>

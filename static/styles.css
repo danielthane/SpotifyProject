@@ -223,3 +223,8 @@ h1 {
 .user-text {
   color: #9723c9;
 }
+
+/* POPULARITY STUFF */
+.popularity {
+  padding-top: 3rem;
+}
